@@ -40,12 +40,17 @@
                 </div>
             @endif
 
+            @if(session()->has('success'))
+            <div class="alert alert-success">
+                {{ session()->get('success') }}
+            </div>
+        @endif
 
 
             <div class="container">
             <div container >
                 @auth
-                <a href="{{ route('create') }}" class="btn btn-primary btn-xs pull-right"><b>+</b> Add new Contact :</a>
+                <a href="{{ route('contact.create') }}" class="btn btn-primary btn-xs pull-right"><b>+</b> Add new Contact :</a>
          @endauth
             </div>
                 <div class="row col-md-6 col-md-offset-2 custyle">
@@ -68,12 +73,22 @@
                 </thead>
                         <tr>
                             <td>{{$cont->name}}</td>
-                            @auth
-                                 <td class="text-center"><a class='btn btn-info btn-xs' href="{{ url('edit',$cont->id) }}"><span class="glyphicon glyphicon-edit"></span> Edit</a>
-                                    <a href="#" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span> Del</a>
-                                    <a href="{{ url('',$cont->id) }}" class="btn btn-warning btn-xs"><span class="glyphicon glyphicon-show"></span> show</a>
-                                </td>
-                            @endauth
+@auth
+
+
+                                 <td class="text-center">
+                                    <div class="btn-group">
+                                    <a class='btn btn-info btn-xs' href="{{ route('contact.edit',$cont) }}"><span class="glyphicon glyphicon-edit"></span> Edit</a>
+                                    <a href="{{ route('contact.show',$cont) }}" class="btn btn-warning btn-xs"><span class="glyphicon glyphicon-show"></span> show</a>
+                                    <form action="{{ route('contact.destroy',$cont)}}" method="post">
+                                        @method('DELETE')
+                                        @csrf
+
+                                        <button class="btn btn-danger" type="submit">Delete</button>
+                                      </form>
+                                    </div>
+                                    </td>
+@endauth
 
                         </tr>
                         @endforeach
@@ -88,4 +103,3 @@
         </div>
     </body>
 </html>
-

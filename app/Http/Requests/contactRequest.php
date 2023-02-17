@@ -25,9 +25,10 @@ class contactRequest extends FormRequest
     {
         return [
 
-            'name' => 'required| min:6 |',
-            'email_adress' =>'required|unique:contacts',
+            'name' => 'required| min:6',
             'contact' => 'required|numeric|digits:9',
+            'email_adress' => 'required|email|unique:contacts',
+
 
         ];
     }

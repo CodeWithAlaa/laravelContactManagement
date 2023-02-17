@@ -4,6 +4,7 @@
 
 
 
+
 <div class="container">
   <div class="card uper">
     <div class="card-header">
@@ -21,20 +22,20 @@ Add new Contact
         </div><br />
       @endif
 
-        <form method="post" action="{{route ('store')}}">
+        <form method="post" action="{{route ('contact.store')}}">
   .         @csrf
             <div class="form-group">
                 <label for="name">Name :</label>
-                <input type="text" class="form-control" name="name"/>
+                <input type="text" class="form-control" name="name"  value="{{old('name')}}"/>
             </div>
 
             <div class="form-group">
                 <label for="contact">Contact :</label>
-                <input type="text" class="form-control" name="contact"/>
+                <input type="text" class="form-control" name="contact"  value="{{old('contact')}}"/>
             </div>
             <div class="form-group">
-                <label for="email"> Email :</label>
-                <input type="text" class="form-control" name="email"/>
+                <label for="email_adress"> Email :</label>
+                <input type="text" class="form-control" name="email_adress" value="{{old('email_adress')}}"/>
             </div>
             <button type="submit" class="btn btn-primary">Add</button>
         </form>

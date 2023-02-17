@@ -15,8 +15,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::resource('/', ContactController::class);
-
+Route::resource('contact', ContactController::class);
+Route::get('/',[App\Http\Controllers\ContactController::class, 'index']) ;
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

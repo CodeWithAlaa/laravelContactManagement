@@ -71,3 +71,28 @@ php artisan migrate:refresh
 php artisan migrate:refresh
 php artisan migrate:refresh
 php artisan migrate:refresh
+php artisan migrate:refresh
+php artisan migrate:fresh
+php artisan migrate:migrate
+php artisan migrate
+php artisan migrate:refresh
+php artisan migrate:fresh
+php artisan make:reques contactrequest
+git add .
+git branch contactbranch
+git checkout contactbranch
+git commit -m "contact-feature"
+git checkout master
+git merge contactbranch master
+git push -u contactbranch master
+git push -u origin contactbranch master
+git add .
+git branch middlewarebranch
+git checkout middlewarebranch
+git commit -m "middleware-feature"
+git checkout master
+git merge middlewarebranch master
+git push -u origin middlewarebranch  master
+composer dump-autoload
+composer dump-autoload
+composer dump-autoload

@@ -15,6 +15,8 @@
                     @endif
 
                     {{ __('You are logged in!') }}
+                    <a href=" {{ URL::to('/') }}"/>list of contacts click here</a>  
+                    
                 </div>
             </div>
         </div>

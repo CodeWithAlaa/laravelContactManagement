@@ -2,15 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\contactRequest;
 use App\Models\Contact;
+use Illuminate\Http\Request;
+
+use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\contactRequest;
 
 class ContactController extends Controller
 {
-    public function __construct()
+
+public function __construct()
 {
-     $this->middleware('auth', ['except' =>['index','show']]);
+    $this->middleware('auth', ['except' =>['index','show']]);
 }
     /**
      * Display a listing of the resource.
@@ -48,12 +52,12 @@ class ContactController extends Controller
         Contact::create([
             'name' => $request->name,
             'contact' => $request->contact,
-            'email_adress' => $request->email,
+            'email_adress' => $request->email_adress,
             'user_id' => Auth::user()->id,
 
         ]);
 
-        return redirect(route('index'));
+        return redirect(route('contact.index'));
 
     }
 
@@ -87,18 +91,35 @@ class ContactController extends Controller
      * @param  \App\Models\Contact  $contact
      * @return \Illuminate\Http\Response
      */
-    public function update(contactRequest $request, Contact $contact)
+    public function update(Request $request, Contact $contact)
     {
 
-        $request->validated();
-        
+     $request->validate([
+
+        'name' =>[
+            'required',
+             'min:6',
+        ],
+
+        'email_adress'   =>  [
+            'required',
+             Rule::unique('contacts')->ignore($contact),
+        ],
+        'contact'   =>  [
+            'required',
+            'numeric',
+            'digits:9',
+             Rule::unique('contacts')->ignore($contact),
+        ]
+    ]);
+
         $contact->update([
-            "title" => $request->name,
-            "email_adress" => $request->email,
-            "contact" => $request->contact
+            'name' => $request->name,
+            'contact' => $request->contact,
+            'email_adress' => $request->email_adress,
         ]);
 
-        return redirect(route('index'));
+        return redirect(route('contact.index'));
     }
 
     /**
@@ -110,6 +131,10 @@ class ContactController extends Controller
     public function destroy(Contact $contact)
     {
         $contact->delete();
-        return redirect(route('index'));
+
+        return redirect()->route('contact.index')
+        ->with('success','contact deleted succesfully');
+
+
     }
 }
